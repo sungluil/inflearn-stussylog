@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 public class PostRequest {
     private Long id;
     private String name;
-    private int age;
+    private String age;
 
     public PostRequest(Post post) {
         this.id = post.getId();
@@ -22,7 +22,7 @@ public class PostRequest {
     }
 
     @Builder
-    public PostRequest(Long id, String name, int age) {
+    public PostRequest(Long id, String name, String age) {
         this.id = id;
         this.name = name.substring(0, Math.min(name.length(), 10));//둘중에 작은값을 가져오기때문에 10자이상이면 10, 10보다작으면 문자열길이만큼 가져옴
         this.age = age;

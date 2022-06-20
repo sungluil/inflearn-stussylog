@@ -32,12 +32,11 @@ public class ExceptionHandlerController {
 
     @ExceptionHandler(BaseException.class)
     public ResponseEntity baseException(BaseException e) {
-        int statusCode = e.getStatusCode();
         ErrorDto errorDto = ErrorDto.builder()
-                        .errorCode(String.valueOf(statusCode))
+                        .errorCode(e.getExceptionType().getCode())
                         .errorMessage(e.getMessage()).build();
 
-        return ResponseEntity.status(statusCode).body(errorDto);
+        return ResponseEntity.status(Integer.valueOf(e.getExceptionType().getCode())).body(errorDto);
     }
 
 }

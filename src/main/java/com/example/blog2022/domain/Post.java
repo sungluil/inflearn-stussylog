@@ -5,13 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity @Getter @Builder
+@Entity @Getter @Builder @Setter
 @NoArgsConstructor @AllArgsConstructor
 public class Post {
     @Id
@@ -20,7 +22,7 @@ public class Post {
 
     private String name;
 
-    private int age;
+    private String age;
 
     public PostDto from() {
         return PostDto.builder()

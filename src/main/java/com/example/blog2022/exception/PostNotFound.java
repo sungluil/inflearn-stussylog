@@ -1,19 +1,18 @@
 package com.example.blog2022.exception;
 
+import lombok.Getter;
+
+@Getter
 public class PostNotFound extends BaseException {
 
-    private static final String ERROR_MESSAGE = "잘못된 아이디 입니다.";
+    private BaseExceptionType exceptionType;
 
-    public PostNotFound() {
-        super(ERROR_MESSAGE);
+    public PostNotFound(String message) {
+        super(message);
     }
 
-    public PostNotFound(Throwable cause) {
-        super(ERROR_MESSAGE, cause);
-    }
-
-    @Override
-    public int getStatusCode() {
-        return 404;
+    public PostNotFound(BaseExceptionType exceptionType) {
+        super(exceptionType.getMessage());
+        this.exceptionType = exceptionType;
     }
 }

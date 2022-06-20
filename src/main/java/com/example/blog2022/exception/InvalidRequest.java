@@ -5,26 +5,18 @@ import lombok.Getter;
 @Getter
 public class InvalidRequest extends BaseException {
 
-    private static final String ERROR_MESSAGE = "잘못된 요청입니다.";
-    private String filedName;
-    private String message;
+    private BaseExceptionType exceptionType;
 
-    public InvalidRequest() {
-        super(ERROR_MESSAGE);
+    public InvalidRequest(String message) {
+        super(message);
     }
 
-    public InvalidRequest(Throwable cause) {
-        super(ERROR_MESSAGE, cause);
+    public InvalidRequest(BaseExceptionType exceptionType) {
+        super(exceptionType.getMessage());
+        this.exceptionType = exceptionType;
     }
 
-    public InvalidRequest(String filedName, String message) {
-        super(ERROR_MESSAGE);
-        this.filedName = filedName;
-        this.message = message;
-    }
-
-    @Override
-    public int getStatusCode() {
-        return 400;
+    public InvalidRequest(String message, Throwable cause) {
+        super(message, cause);
     }
 }

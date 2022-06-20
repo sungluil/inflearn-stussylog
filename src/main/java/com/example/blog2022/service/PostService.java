@@ -1,6 +1,7 @@
 package com.example.blog2022.service;
 
 import com.example.blog2022.domain.Post;
+import com.example.blog2022.exception.BaseExceptionType;
 import com.example.blog2022.exception.PostNotFound;
 import com.example.blog2022.repository.PostRepository;
 import com.example.blog2022.vo.PageDto;
@@ -18,23 +19,19 @@ import java.util.stream.IntStream;
 public class PostService {
 
     private final PostRepository postRepository;
-    public void save(PostDto postDto) {
+    public PostDto save(PostDto postDto) {
         Post post = Post.builder()
                 .name(postDto.getName())
                 .age(postDto.getAge())
                 .build();
-        postRepository.save(post).from();
+        return postRepository.save(post).from();
     }
 
     public PostDto get(Long id) {
         Post post = postRepository.findById(id).orElseThrow(()
-                -> new PostNotFound());
+                -> new PostNotFound(BaseExceptionType.ERROR_400));
 
-        return PostDto.builder()
-                .id(post.getId())
-                .name(post.getName())
-                .age(post.getAge())
-                .build();
+        return new PostDto(post);
     }
 
     public List<PostRequest> getList(PageDto pageDto) {
@@ -45,8 +42,24 @@ public class PostService {
 
     public void multiSave() {
         List<Post> collect = IntStream.range(0, 20)
-                .mapToObj(i -> Post.builder().name("name" + i).age(i).build())
+                .mapToObj(i -> Post.builder().name("name" + i).age(""+i).build())
                 .collect(Collectors.toList());
         postRepository.saveAll(collect);
+    }
+
+    public PostDto update(Long id, PostDto postDto) {
+        Post post = postRepository.findById(id).orElseThrow(()
+                -> new PostNotFound(BaseExceptionType.ERROR_400));
+
+        post.setName(postDto.getName());
+        post.setAge(postDto.getAge());
+        return postRepository.save(post).from();
+    }
+
+    public void delete(Long id) {
+        Post post = postRepository.findById(id).orElseThrow(()
+                -> new PostNotFound(BaseExceptionType.ERROR_400));
+
+        postRepository.delete(post);
     }
 }
