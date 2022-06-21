@@ -24,7 +24,8 @@ public class PostService {
                 .name(postDto.getName())
                 .age(postDto.getAge())
                 .build();
-        return postRepository.save(post).from();
+
+        return new PostDto(postRepository.save(post));
     }
 
     public PostDto get(Long id) {

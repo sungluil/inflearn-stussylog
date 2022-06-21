@@ -27,6 +27,7 @@ public class ExceptionHandlerController {
                     .build();
             errorDto.addValid(exceptionDto);
         }
+
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDto);
     }
 

@@ -6,7 +6,6 @@ import com.example.blog2022.vo.PostDto;
 import com.example.blog2022.vo.PostRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -57,7 +56,7 @@ public class PostController {
     }
 
     @PatchMapping("/post/{postId}")
-    public PostDto update(@PathVariable(name = "postId") Long id, @RequestBody @Valid PostDto postDto) {
+    public PostDto update( @PathVariable(name = "postId") Long id, @RequestBody @Valid PostDto postDto) {
         return postService.update(id, postDto);
     }
 
